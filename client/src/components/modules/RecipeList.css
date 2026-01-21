@@ -1,9 +1,10 @@
 .RecipeList {
-  height: calc(100vh - 120px); /* navbar + title space */
-  overflow-y: auto;
-  padding-right: 8px;
+	height: calc(100vh - 120px);
+	overflow-y: auto;
+	padding-right: 8px;
 
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+	display: grid;
+	grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+	gap: 16px;
 }
+

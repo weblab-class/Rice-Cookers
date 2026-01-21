@@ -1,7 +1,42 @@
 .HomePage {
-  padding: 16px;
+	padding: 16px;
+}
+
+.HomePage-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 12px;
 }
 
 .HomePage-title {
-  margin: 0 0 12px 0;
+	margin: 0;
+}
+
+.HomePage-controls {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.ColsButton {
+	width: 40px;
+	height: 40px;
+	border-radius: 999px;
+	border: 2px solid rgba(0, 0, 0, 0.7);
+	background: rgba(255, 255, 255, 0.8);
+	cursor: pointer;
+	font-size: 22px;
+	line-height: 1;
+}
+
+.ColsButton:hover {
+	background: rgba(255, 255, 255, 0.95);
+}
+
+.ColsLabel {
+	min-width: 72px;
+	text-align: center;
+	font-weight: 600;
 }

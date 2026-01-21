@@ -1,56 +1,56 @@
 .RecipeCard {
-  background: white;
-  border: 3px solid black;
-  border-radius: 28px;
-  padding: 14px 16px;
+	background: white;
+	border: 3px solid black;
+	border-radius: 28px;
+	padding: 14px 16px;
 
-  cursor: pointer;
-  user-select: none;
+	cursor: pointer;
+	user-select: none;
 }
 
 .RecipeCard-topRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .RecipeCard-author {
-  font-weight: 600;
+	font-weight: 600;
 }
 
 .RecipeCard-imageWrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 18px 0;
-  min-height: 140px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 18px 0;
+	min-height: 140px;
 }
 
 .RecipeCard-image {
-  max-height: 140px;
-  max-width: 220px;
-  object-fit: contain;
+	max-height: 140px;
+	max-width: 220px;
+	object-fit: contain;
 }
 
 .RecipeCard-imagePlaceholder {
-  width: 220px;
-  height: 140px;
-  border-radius: 18px;
-  border: 2px dashed rgba(0,0,0,0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.7;
+	width: 220px;
+	height: 140px;
+	border-radius: 18px;
+	border: 2px dashed rgba(0,0,0,0.4);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0.7;
 }
 
 .RecipeCard-bottomRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
 }
 
 .RecipeCard-title {
-  font-weight: 600;
-  opacity: 0.9;
+	font-weight: 600;
+	opacity: 0.9;
 }
