@@ -3,100 +3,124 @@
 | server.js -- The core of your server
 |--------------------------------------------------------------------------
 |
-| This file defines how your server starts up. Think of it as the main() of your server.
-| At a high level, this file does the following things:
-| - Connect to the database
-| - Sets up server middleware (i.e. addons that enable things like json parsing, user login)
-| - Hooks up all the backend routes specified in api.js
-| - Forwards frontend routes that should be handled by the React router
-| - Sets up error handling in case something goes wrong when handling a request
-| - Actually starts the webserver
+| Responsibilities:
+| - Load environment variables
+| - Connect to MongoDB
+| - Configure Express middleware (JSON parsing, sessions, auth)
+| - Mount API routes
+| - Serve built frontend (Vite build output) in production
+| - Initialize Socket.IO on the same HTTP server
+| - Start listening on Render-provided PORT
 */
-
-const validator = require("./validator");
-validator.checkSetup();
 
 require("dotenv").config();
 
+const fs = require("fs");
+const path = require("path");
 const http = require("http");
+
 const express = require("express");
 const session = require("express-session");
 const mongoose = require("mongoose");
-const path = require("path");
 
+const validator = require("./validator");
 const api = require("./api");
 const auth = require("./auth");
-
-// socket stuff
 const socketManager = require("./server-socket");
 
-// Server configuration below
-const mongoConnectionURL = "mongodb+srv://ajw1434:Shr1mpFri3dR1c3@cluster0.hj38djq.mongodb.net/?appName=Cluster0";
-const databaseName = "Cluster0";
-
-mongoose.set("strictQuery", false);
-
-mongoose
-	.connect(mongoConnectionURL, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		dbName: databaseName,
-	})
-	.then(() => console.log("Connected to MongoDB"))
-	.catch((err) => console.log(`Error connecting to MongoDB: ${err}`));
+validator.checkSetup();
 
 const app = express();
-app.use(validator.checkRoutes);
 
-// JSON body (needed for base64 image uploads if you use that approach)
+// Render (and similar hosts) sit behind a proxy. This avoids issues with secure cookies if you enable them later.
+app.set("trust proxy", 1);
+
+// Allow Base64 image payloads (adjust if needed).
 app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 app.use(
 	session({
-		secret: "session-secret",
+		secret: process.env.SESSION_SECRET || "session-secret",
 		resave: false,
 		saveUninitialized: false,
 	})
 );
 
-app.use(auth.populateCurrentUser);
+// --------------------
+// Database connection
+// --------------------
+const mongoUri =
+	process.env.MONGODB_URI ||
+	process.env.MONGODB_URL ||
+	process.env.mongodb_url ||
+	process.env.mongodb_uri;
 
-// API routes
+if (!mongoUri) {
+	console.error("Missing MongoDB connection string.");
+	console.error("Set MONGODB_URI in your environment (Render Environment page) or in a local .env file.");
+	process.exit(1);
+}
+
+mongoose
+	.connect(mongoUri)
+	.then(() => {
+		console.log("Connected to MongoDB");
+	})
+	.catch((err) => {
+		console.error("Mongo connection error:", err);
+		process.exit(1);
+	});
+
+// --------------------
+// Auth + API routes
+// --------------------
+app.use(auth.populateCurrentUser);
 app.use("/api", api);
 
-// Serve the Vite build output from client/dist
-const reactPath = path.resolve(__dirname, "..", "client", "dist");
-app.use(express.static(reactPath));
+// --------------------
+// Serve frontend build (production)
+// --------------------
+// We try common output locations depending on how Vite is configured in your skeleton.
+const candidateDistDirs = [
+	path.resolve(__dirname, "..", "dist"),
+	path.resolve(__dirname, "..", "client", "dist"),
+	path.resolve(__dirname, "dist"),
+];
 
+const distDir = candidateDistDirs.find((p) => fs.existsSync(p) && fs.existsSync(path.join(p, "index.html")));
 
-// SPA fallback: any non-API route should serve index.html so React Router can handle it
-app.get("*", (req, res) => {
-	res.sendFile(path.join(reactPath, "index.html"), (err) => {
-		if (err) {
-			console.log("Error sending client/dist/index.html:", err.status || 500);
-			res
-				.status(err.status || 500)
-				.send("Error sending client/dist/index.html - have you run `npm run build` in /client?");
+if (distDir) {
+	app.use(express.static(distDir));
+
+	// SPA fallback: any non-API GET should serve index.html so React Router can handle it.
+	app.get("*", (req, res, next) => {
+		if (req.path.startsWith("/api")) {
+			return next();
 		}
+
+		return res.sendFile(path.join(distDir, "index.html"));
 	});
-});
+} else {
+	console.log("No frontend build directory found. This is expected in local dev if you run Vite separately.");
+}
 
-// Error handler
+// --------------------
+// Error handling
+// --------------------
 app.use((err, req, res, next) => {
+	console.error("Unhandled server error:", err);
 	const status = err.status || 500;
-	if (status === 500) {
-		console.log("The server errored when processing a request!");
-		console.log(err);
-	}
-
 	res.status(status).send({
 		status,
-		message: err.message,
+		message: err.message || "server error",
 	});
 });
 
-// Start server
-const port = 3000;
+// --------------------
+// Start server + Socket.IO
+// --------------------
+const port = process.env.PORT || 3000;
 const server = http.Server(app);
 socketManager.init(server);
 
