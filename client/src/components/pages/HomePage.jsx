@@ -1,38 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { get } from "../../utilities";
 import RecipeList from "../modules/RecipeList";
 import "./HomePage.css";
 
 const HomePage = () => {
 	const [columns, setColumns] = useState(2);
 
-	const recipes = [
-		{
-			_id: "water",
-			title: "Water",
-			authorName: "Anonymous",
-			timeRating: 1,
-			avgRating: 5,
-			image: "/images/water.png",
-		},
-		{
-			_id: "soda",
-			title: "Soda",
-			authorName: "Anonymous",
-			timeRating: 1,
-			avgRating: 3,
-			image: "/images/soda.png",
-		},
-		{
-			_id: "juice",
-			title: "Juice",
-			authorName: "Anonymous",
-			timeRating: 2,
-			avgRating: 4,
-			image: "/images/juice.png",
-		},
-	];
+	const [recipes, setRecipes] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const [error, setError] = useState("");
 
-	const topRated = [...recipes].sort((a, b) => (b.avgRating ?? 0) - (a.avgRating ?? 0));
+	useEffect(() => {
+		let isMounted = true;
+
+		const loadRecipes = async () => {
+			try {
+				setIsLoading(true);
+				setError("");
+
+				const data = await get("/api/recipe");
+				if (!isMounted) return;
+
+				setRecipes(Array.isArray(data) ? data : []);
+			} catch (e) {
+				if (!isMounted) return;
+
+				setError("Failed to load recipes from server.");
+				setRecipes([]);
+			} finally {
+				if (!isMounted) return;
+				setIsLoading(false);
+			}
+		};
+
+		loadRecipes();
+
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+
+	const topRated = useMemo(() => {
+		return [...recipes].sort((a, b) => (Number(b?.avgRating) || 0) - (Number(a?.avgRating) || 0));
+	}, [recipes]);
 
 	const decCols = () => setColumns((c) => Math.max(1, c - 1));
 	const incCols = () => setColumns((c) => Math.min(4, c + 1));
@@ -53,7 +63,13 @@ const HomePage = () => {
 				</div>
 			</div>
 
-			<RecipeList recipes={topRated} columns={columns} />
+			{isLoading ? (
+				<div>Loading recipes...</div>
+			) : error ? (
+				<div>{error}</div>
+			) : (
+				<RecipeList recipes={topRated} columns={columns} />
+			)}
 		</div>
 	);
 };

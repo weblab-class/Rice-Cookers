@@ -1,29 +1,26 @@
 import React, { useState, useEffect, createContext } from "react";
-import { Outlet } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import jwt_decode from "jwt-decode";
 
 import "../utilities.css";
 
 import { socket } from "../client-socket";
-
 import { get, post } from "../utilities";
 
-import NavBar from "./modules/NavBar"
-import HomePage from "./pages/HomePage"
+import NavBar from "./modules/NavBar";
+import HomePage from "./pages/HomePage";
+import SubmitPage from "./pages/SubmitPage";
+import NotFound from "./pages/NotFound";
 
 export const UserContext = createContext(null);
 
-/**
- * Define the "App" component
- */
 const App = () => {
   const [userId, setUserId] = useState(undefined);
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
       if (user._id) {
-        // they are registed in the database, and currently logged in.
         setUserId(user._id);
       }
     });
@@ -53,8 +50,13 @@ const App = () => {
   return (
     <UserContext.Provider value={authContextValue}>
       <NavBar />
-      <Outlet />
-      <HomePage />
+      <div className="App-container">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/submit" element={<SubmitPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
     </UserContext.Provider>
   );
 };

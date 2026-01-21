@@ -5,18 +5,17 @@ import { GoogleLogin } from "@react-oauth/google";
 import { UserContext } from "../App";
 import "./NavBar.css";
 
+import submitIcon from "./assets/plus-icon.png";
+
 const NavBar = () => {
 	const navigate = useNavigate();
 	const { userId, handleLogin, handleLogout } = useContext(UserContext);
 
-	// hamburger dropdown state
 	const [menuOpen, setMenuOpen] = useState(false);
 	const menuRef = useRef(null);
 
-	// search (UI only for now)
 	const [search, setSearch] = useState("");
 
-	// Close menu on outside click + Escape
 	useEffect(() => {
 		if (!menuOpen) return;
 
@@ -39,17 +38,18 @@ const NavBar = () => {
 	}, [menuOpen]);
 
 	const onLogoutClick = () => {
-		handleLogout();      // your App.jsx already POSTs /api/logout
+		handleLogout();
 		setMenuOpen(false);
 		navigate("/");
 	};
 
 	return (
 		<nav className="NavBar">
-			{/* Left: search + filter */}
 			<div className="NavBar-left">
 				<div className="NavBar-searchWrap">
-					<span className="NavBar-searchIcon" aria-hidden="true">⌕</span>
+					<span className="NavBar-searchIcon" aria-hidden="true">
+						⌕
+					</span>
 					<input
 						className="NavBar-searchInput"
 						placeholder="Search recipes..."
@@ -67,9 +67,13 @@ const NavBar = () => {
 				</div>
 			</div>
 
-			{/* Right: create + hamburger */}
 			<div className="NavBar-right" ref={menuRef}>
-				<Link className="NavBar-iconButton NavBar-linkButton" to="/new" title="Create recipe">
+
+				<Link className="NavBar-iconButton NavBar-linkButton" to="/submit" title="New recipe">
+					<img className="NavBar-submitIcon" src={submitIcon} alt="Submit" />
+				</Link>
+
+				<Link className="NavBar-iconButton NavBar-linkButton" to="/submit" title="Create recipe">
 					📷
 				</Link>
 
@@ -87,12 +91,7 @@ const NavBar = () => {
 					<div className="MiniMenu" role="menu" aria-label="User menu">
 						{userId ? (
 							<>
-								<Link
-									className="MiniMenu-row MiniMenu-link"
-									to="/my"
-									role="menuitem"
-									onClick={() => setMenuOpen(false)}
-								>
+								<Link className="MiniMenu-row MiniMenu-link" to="/my" role="menuitem" onClick={() => setMenuOpen(false)}>
 									My Recipes
 								</Link>
 
@@ -107,25 +106,15 @@ const NavBar = () => {
 
 								<div className="MiniMenu-divider" />
 
-								<button
-									className="MiniMenu-row MiniMenu-button"
-									type="button"
-									role="menuitem"
-									onClick={onLogoutClick}
-								>
+								<button className="MiniMenu-row MiniMenu-button" type="button" role="menuitem" onClick={onLogoutClick}>
 									Log out
 								</button>
 							</>
 						) : (
 							<div className="MiniMenu-loginWrap">
-								<div className="MiniMenu-row MiniMenu-muted">
-									You’re not logged in
-								</div>
+								<div className="MiniMenu-row MiniMenu-muted">You’re not logged in</div>
 								<div className="MiniMenu-google">
-									<GoogleLogin
-										onSuccess={handleLogin}
-										onError={() => console.log("Login failed")}
-									/>
+									<GoogleLogin onSuccess={handleLogin} onError={() => console.log("Login failed")} />
 								</div>
 							</div>
 						)}

@@ -1,0 +1,67 @@
+.SubmitRecipePage{
+	padding:24px;
+	display:flex;
+	justify-content:center;
+}
+
+.SubmitRecipePage-card{
+	width:100%;
+	max-width:720px;
+	background:#ffffff;
+	border-radius:12px;
+	padding:20px;
+	box-shadow:0 6px 18px rgba(0,0,0,0);
+}
+
+.SubmitRecipePage-title{
+	margin:0 0 16px 0;
+}
+
+.SubmitRecipePage-error{
+	margin:0 0 12px 0;
+	padding:10px 12px;
+	border-radius:8px;
+	background:#ffecec;
+	color:#7a0000;
+}
+
+.SubmitRecipePage-form{
+	display:flex;
+	flex-direction:column;
+	gap:14px;
+}
+
+.SubmitRecipePage-label{
+	display:flex;
+	flex-direction:column;
+	gap:6px;
+	font-size:14px;
+}
+
+.SubmitRecipePage-input,
+.SubmitRecipePage-textarea{
+	padding:10px 12px;
+	border-radius:8px;
+	border:1px solid rgba(0,0,0,0.15);
+	font-size:14px;
+}
+
+.SubmitRecipePage-textarea{
+	min-height:110px;
+	resize:vertical;
+}
+
+.SubmitRecipePage-row{
+	display:grid;
+	grid-template-columns:1fr 1fr 1fr;
+	gap:12px;
+}
+
+.SubmitRecipePage-button{
+	padding:12px 14px;
+	border-radius:10px;
+	border:none;
+	cursor:pointer;
+	font-size:14px;
+	font-weight:600;
+}

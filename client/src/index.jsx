@@ -19,7 +19,7 @@ const GOOGLE_CLIENT_ID = "607220944261-67nt99qpp51nu4ktt9mavudgqj4f3g7f.apps.goo
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route errorElement={<NotFound />} element={<App />}>
-      <Route path="/" element={<Skeleton />}/>
+      <Route path="/*" element={<App />}/>
     </Route>
   )
 )

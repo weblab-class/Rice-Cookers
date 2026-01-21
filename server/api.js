@@ -21,6 +21,8 @@ const router = express.Router();
 //initialize socket
 const socketManager = require("./server-socket");
 
+const recipeRoutes = require("./recipe");
+
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
 router.get("/whoami", (req, res) => {
@@ -32,16 +34,25 @@ router.get("/whoami", (req, res) => {
   res.send(req.user);
 });
 
+router.get("/ping", (req, res) => {
+	res.send({ ok: true, time: Date.now() });
+});
+
+
 router.post("/initsocket", (req, res) => {
-  // do nothing if user not logged in
+
   if (req.user)
     socketManager.addUser(req.user, socketManager.getSocketFromSocketID(req.body.socketid));
   res.send({});
 });
 
+
+
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
+router.use("/recipe", recipeRoutes);
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

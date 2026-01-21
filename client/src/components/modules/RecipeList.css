@@ -3,8 +3,14 @@
 	overflow-y: auto;
 	padding-right: 8px;
 
-	display: grid;
-	grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
-	gap: 16px;
-}
+	--card-min: 180px;
 
+	display: grid;
+	grid-template-columns: repeat(var(--cols), minmax(var(--card-min), 1fr));
+	gap: 20px;
+
+	/* Critical: prevent single-row stretch */
+	align-content: start;
+	align-items: start;
+	grid-auto-rows: max-content;
+}

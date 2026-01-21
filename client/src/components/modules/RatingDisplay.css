@@ -1,7 +1,14 @@
 .Stars {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2px;
+
+	margin-top: 0;
 	font-size: 18px;
 	line-height: 1;
 }
+
 .Stars-star {
-	margin-right: 2px;
+	color: gold;
 }
