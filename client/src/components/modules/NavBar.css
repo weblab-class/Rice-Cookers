@@ -1,0 +1,121 @@
+.NavBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: var(--m, 12px) var(--l, 16px);
+  background: transparent; /* background */
+}
+
+.NavBar-left {
+  flex: 1;
+}
+
+.NavBar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--s, 8px);
+  position: relative;
+}
+
+/* Search */
+.NavBar-searchWrap {
+  display: flex;
+  align-items: center;
+  gap: var(--s, 8px);
+
+  max-width: 520px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.35);
+  border: 2px solid rgba(0, 0, 0, 0.25);
+}
+
+.NavBar-searchIcon {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.NavBar-searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+}
+
+/* Icon buttons */
+.NavBar-iconButton {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 2px solid rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+  line-height: 1;
+}
+
+.NavBar-iconButton:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.NavBar-linkButton {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Dropdown */
+.MiniMenu {
+  position: absolute;
+  top: 54px;
+  right: 0;
+
+  min-width: 200px;
+  border-radius: 14px;
+  background: white;
+  border: 2px solid rgba(0, 0, 0, 0.75);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+  overflow: hidden;
+}
+
+.MiniMenu-row {
+  padding: 12px 14px;
+  font-size: 15px;
+}
+
+.MiniMenu-link {
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+
+.MiniMenu-link:hover {
+  background: rgba(0,0,0,0.06);
+}
+
+.MiniMenu-button {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.MiniMenu-button:hover {
+  background: rgba(0,0,0,0.06);
+}
+
+.MiniMenu-muted {
+  opacity: 0.7;
+}
+
+.MiniMenu-divider {
+  height: 1px;
+  background: rgba(0,0,0,0.12);
+}
