@@ -10,6 +10,7 @@ import { socket } from "../client-socket";
 import { get, post } from "../utilities";
 
 import NavBar from "./modules/NavBar"
+import HomePage from "./pages/HomePage"
 
 export const UserContext = createContext(null);
 
@@ -53,6 +54,7 @@ const App = () => {
     <UserContext.Provider value={authContextValue}>
       <NavBar />
       <Outlet />
+      <HomePage />
     </UserContext.Provider>
   );
 };
