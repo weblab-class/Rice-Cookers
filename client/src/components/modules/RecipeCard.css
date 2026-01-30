@@ -1,8 +1,7 @@
 .RecipeCard {
-	background: #fff;
-	border-radius: 20px;
-	padding: 10px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+	background: var(--white);
+	border-radius: var(--ml);
+	padding: var(--ms);
 
 	cursor: pointer;
 	user-select: none;
@@ -26,8 +25,8 @@
 	width: 100%;
 	height: 180px;
 	overflow: hidden;
-	border-radius: 15px;
-	background: rgba(255, 255, 255, 0.35);
+	border-radius: var(--m);
+	background: var(--white);
 }
 
 .RecipeCard-image {
@@ -40,16 +39,16 @@
 .RecipeCard-imagePlaceholder {
 	width: 100%;
 	height: 140px;
-	border-radius: 15px;
-	background: rgba(0, 0, 0, 0.04);
-	border: 2px dashed rgba(0, 0, 0, 0.2);
+	border-radius: var(--m);
+	background: var(--black);
+	border: 2px dashed var(--darkgrey);
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
-	font-size: 12px;
-	color: rgba(0, 0, 0, 0.55);
+	font-size: var(--ms);
+	color: var(--black);
 }
 
 
@@ -61,14 +60,14 @@
 	align-items: center;
 	justify-content: center;
 
-	margin-top: 8px;
-	gap: 6px;
+	margin-top: var(--s);
+	gap: var(--xs);
 }
 
 .RecipeCard-title {
-	font-size: 12px;
+	font-size: var(--ms);
 	font-weight: 600;
-	color: rgba(0, 0, 0, 0.6);
+	color: var(--black);
 	text-align: center;
 }
 
@@ -80,115 +79,114 @@
 	align-items: center;
 
 	margin-top: auto;
-	padding-top: 8px;
+	padding-top: var(--s);
 
-	font-size: 12px;
-	color: #555;
+	font-size: var(--ns);
+	color: var(--grey);
 }
 
 .RecipeCard-author {
 	font-weight: 600;
-	color: rgba(0, 0, 0, 0.65);
+	color: var(--black);
 }
 
-.RecipeCard-instructionsSection {
-	margin-top: 10px;
+.RecipeCard-recipeSection {
+	margin-top: var(--ms);
 }
 
-.RecipeCard-instructionsHeader {
+.RecipeCard-sectionHeader {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 
 	padding: 8px 10px;
-	border-radius: 12px;
-	background: rgba(0, 0, 0, 0.04);
+	border-radius: var(--ms);
+	background: #f0f0f0;
 
 	font-size: 12px;
-	color: rgba(0, 0, 0, 0.65);
+	color: var(--black);
 }
 
-.RecipeCard-instructionsChevron {
-	font-size: 11px;
-	opacity: 0.8;
+.RecipeCard-sectionHeader:hover {
+	background: var(--grey)
 }
 
-.RecipeCard-instructionsBody {
-	margin-top: 8px;
-	padding: 10px;
-	border-radius: 12px;
-	background: rgba(0, 0, 0, 0.02);
+.RecipeCard-chevron {
+	font-size: var(--ms);
+}
+
+.RecipeCard-sectionBody {
+	margin-top: var(--s);
+	padding: var(--ms);
+	border-radius: var(--ms);
+	background: var(--lgrey);
 	max-height: 180px;
 	overflow: auto;
 	user-select: text;
 	cursor: auto;
 }
 
-.RecipeCard-instructionsList {
+.RecipeCard-sectionList {
 	margin: 0;
-	padding-left: 18px;
+	padding-left: var(--l);
 
-	font-size: 13px;
-	line-height: 1.35;
-	color: rgba(0, 0, 0, 0.75);
+	font-size: 14px;
+	line-height: 1.25;
+	color: var(--black);
 }
 
-.RecipeCard-instructionsList li {
+.RecipeCard-sectionList li {
 	margin: 0 0 8px 0;
 }
 
-.RecipeCard-instructionsEmpty {
-	font-size: 13px;
-	color: rgba(0, 0, 0, 1);
+.RecipeCard-userRatingRow{
+	display:flex;
+	align-items:center;
+	gap: var(--s);
+	margin-top: var(--s);
+	padding: var(--xs) 0;
 }
 
-.RecipeCard-ingredientsSection {
-	margin-top: 10px;
+.RecipeCard-userRatingLabel{
+	font-size: var(--m);
 }
 
-.RecipeCard-ingredientsHeader {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-
-	padding: 8px 10px;
-	border-radius: 12px;
-	background: rgba(0, 0, 0, 0.04);
-
-	font-size: 12px;
-	color: rgba(0, 0, 0, 0.65);
+.RecipeCard-userRatingMuted{
+	opacity: 0.7;
 }
 
-.RecipeCard-ingredientsChevron {
-	font-size: 11px;
-	opacity: 0.8;
+.UserStars{
+	display:flex;
+	gap: var(--t);
 }
 
-.RecipeCard-ingredientsBody {
-	margin-top: 8px;
-	padding: 10px;
-	border-radius: 12px;
-	background: rgba(0, 0, 0, 0.02);
-	max-height: 180px;
-	overflow: auto;
-	user-select: text;
-	cursor: auto;
+.UserStars-star{
+	border: 1px solid var(--black);
+	border-radius: var(--s);
+	background: var(--white);
+	cursor: pointer;
+	font-size: var(--ml);
+	line-height: 1;
+	padding: var(--t) var(--xs);
 }
 
-.RecipeCard-ingredientsList {
-	margin: 0;
-	padding-left: 18px;
-
-	font-size: 13px;
-	line-height: 1.35;
-	color: rgba(0, 0, 0, 0.75);
+.UserStars-star--filled{
+	background: var(--grey);
 }
 
-.RecipeCard-ingredientsList li {
-	margin: 0 0 8px 0;
+.UserStars-star:hover{
+	background: var(--grey);
 }
 
-.RecipeCard-ingredientsEmpty {
-	font-size: 13px;
-	color: rgba(0, 0, 0, 1);
+.RecipeCard-clearRating{
+	border: 1px solid var(--black);
+	border-radius: var(--s);
+	background: var(--white);
+	cursor: pointer;
+	padding: var(--t) var(--xs);
+	font-size: var(--m);
+}
+
+.RecipeCard-clearRating:hover{
+	background: var(--grey);
 }

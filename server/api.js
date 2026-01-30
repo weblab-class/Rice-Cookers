@@ -22,6 +22,8 @@ const router = express.Router();
 const socketManager = require("./server-socket");
 
 const recipeRoutes = require("./recipe");
+const ratingRoutes = require("./rating");
+
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -53,6 +55,8 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 
 router.use("/recipe", recipeRoutes);
+router.use("/rating", ratingRoutes);
+
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

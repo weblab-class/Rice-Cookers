@@ -75,9 +75,9 @@ const RecipeCard = ({ recipe }) => {
 				<div className="RecipeCard-title">{recipe.title}</div>
 			</div>
 
-			<div className="RecipeCard-ingredientsSection">
+			<div className="RecipeCard-recipeSection">
 				<div
-					className="RecipeCard-ingredientsHeader"
+					className="RecipeCard-sectionHeader"
 					onClick={(e) => {
 						e.stopPropagation();
 						toggleIng();
@@ -87,57 +87,57 @@ const RecipeCard = ({ recipe }) => {
 					tabIndex={0}
 					aria-expanded={showsIng}
 				>
-					<div className="RecipeCard-ingredientsLabel">
+					<div className="RecipeCard-sectionLabel">
 						{showsIng ? "Ingredients" : "Click to view ingredients"}
 					</div>
-					<div className="RecipeCard-ingredientsChevron">{showsIng ? "▲" : "▼"}</div>
+					<div className="RecipeCard-chevron">{showsIng ? "▲" : "▼"}</div>
 				</div>
 
 				{showsIng ? (
 					<div
-						className="RecipeCard-ingredientsBody"
+						className="RecipeCard-sectionBody"
 						onClick={(e) => e.stopPropagation()}
 						onKeyDown={(e) => e.stopPropagation()}
 						role="region"
 						aria-label="Recipe ingredients"
 					>
 						{ingredients.length ? (
-							<ul className="RecipeCard-ingredientsList">
+							<ul className="RecipeCard-sectionList">
 								{ingredients.map((item, i) => (
 									<li key={i}>{item}</li>
 								))}
 							</ul>
 						) : (
-							<div className="RecipeCard-ingredientsEmpty">No ingredients provided.</div>
+							<div className="RecipeCard-sectionEmpty">No ingredients provided.</div>
 						)}
 					</div>
 				) : null}
 			</div>
 
-			<div className="RecipeCard-instructionsSection">
-				<div className="RecipeCard-instructionsHeader">
-					<div className="RecipeCard-instructionsLabel">
+			<div className="RecipeCard-recipeSection">
+				<div className="RecipeCard-sectionHeader">
+					<div className="RecipeCard-sectionLabel">
 						{showsInstr ? "Instructions" : "Click to view instructions"}
 					</div>
-					<div className="RecipeCard-instructionsChevron">{showsInstr ? "▲" : "▼"}</div>
+					<div className="RecipeCard-chevron">{showsInstr ? "▲" : "▼"}</div>
 				</div>
 
 				{showsInstr ? (
 					<div
-						className="RecipeCard-instructionsBody"
+						className="RecipeCard-sectionBody"
 						onClick={(e) => e.stopPropagation()}
 						onKeyDown={(e) => e.stopPropagation()}
 						role="region"
 						aria-label="Recipe instructions"
 					>
 						{instructions.length ? (
-							<ol className="RecipeCard-instructionsList">
+							<ol className="RecipeCard-sectionList">
 								{instructions.map((step, i) => (
 									<li key={i}>{step}</li>
 								))}
 							</ol>
 						) : (
-							<div className="RecipeCard-instructionsEmpty">No instructions provided.</div>
+							<div className="RecipeCard-sectionEmpty">No instructions provided.</div>
 						)}
 					</div>
 				) : null}

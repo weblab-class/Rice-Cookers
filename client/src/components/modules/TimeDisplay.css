@@ -1,11 +1,11 @@
 .Clocks {
 	display: flex;
 	align-items: center;
-	gap: 3px;
+	gap: var(--xs);
 
 	font-size: 12px;
 	line-height: 1;
-	color: #555;
+	color: var(--primary);
 }
 
 .Clocks-clock {
