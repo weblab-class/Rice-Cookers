@@ -26,12 +26,10 @@ const RecipeSchema = new Schema(
 		servings: { type: Number, min: 0, default: 0 },
 		tags: { type: [String], default: [] },
 
-		// Stored in GridFS (separate storage inside same MongoDB cluster)
-		image: { type: String, trim: true, default: "" }, // client-facing URL
+		image: { type: String, trim: true, default: "" },
 		imageFileId: { type: Schema.Types.ObjectId, default: null },
 		imageContentType: { type: String, default: "" },
 
-		// Ratings (cumulative)
 		ratingSum: { type: Number, default: 0, min: 0 },
 		ratingCount: { type: Number, default: 0, min: 0 },
 		avgRating: { type: Number, default: 0, min: 0, max: 5 },

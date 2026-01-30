@@ -46,10 +46,10 @@ const toNonnegInt = (v) => {
   return Math.round(n);
 };
 
-// GET /api/recipe
+// fetch top 200 rated recipes, tiebreaks by creation date
 router.get("/", async (req, res) => {
   try {
-    const recipe = await Recipe.find({}).sort({ createdAt: -1 }).limit(200);
+    const recipe = await Recipe.find({}).sort({ avgRating: -1, createdAt: -1 }).limit(200);
     return res.send(recipe);
   } catch (err) {
     console.log("List recipes error:", err);
@@ -57,6 +57,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+//fetch recipes associated with logged in user in order of creation
 router.get("/mine", auth.ensureLoggedIn, async (req, res) => {
 	try {
 		const recipes = await Recipe.find({ author: req.user._id })
@@ -69,7 +70,7 @@ router.get("/mine", auth.ensureLoggedIn, async (req, res) => {
 	}
 });
 
-// POST /api/recipe (Create new recipe)
+// new recipe
 router.post("/", auth.ensureLoggedIn, async (req, res) => {
   try {
     const {
@@ -97,9 +98,9 @@ router.post("/", auth.ensureLoggedIn, async (req, res) => {
       tags: parseTags(tags),
     });
 
-    // Handle Image Upload to GridFS if provided
+    // upload image to gridfs if provided
     if (image && typeof image === "string") {
-      // Basic base64 regex check
+      // base64 check
       const matches = image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
       if (matches && matches.length === 3) {
         const contentType = matches[1];
@@ -115,7 +116,7 @@ router.post("/", auth.ensureLoggedIn, async (req, res) => {
           metadata: { contentType },
         });
 
-        // Write buffer to GridFS
+        // gridfs buffer
         await new Promise((resolve, reject) => {
           uploadStream.end(buffer, (err) => {
             if (err) reject(err);
@@ -139,6 +140,7 @@ router.post("/", auth.ensureLoggedIn, async (req, res) => {
   }
 });
 
+// delete recipe
 router.post("/delete", auth.ensureLoggedIn, async (req, res) => {
 	try {
 		const { recipeId } = req.body;
@@ -153,7 +155,7 @@ router.post("/delete", auth.ensureLoggedIn, async (req, res) => {
 		});
 
 		if (!deleted) {
-			// Either doesn't exist or user doesn't own it
+			// recipe not found
 			return res.status(404).send({ err: "recipe not found" });
 		}
 
@@ -164,7 +166,7 @@ router.post("/delete", auth.ensureLoggedIn, async (req, res) => {
 	}
 });
 
-// GET /api/recipe/:id
+// fetch recipe
 router.get("/:id", async (req, res) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
@@ -176,7 +178,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// GET /api/recipe/image/:fileId  (streams from GridFS)
+// fetch recipe image
 router.get("/image/:fileId", async (req, res) => {
   try {
     const b = getBucket();
