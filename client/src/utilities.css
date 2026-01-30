@@ -4,11 +4,11 @@
 * and can be used to add general styles; variable definitions
 * for colors; and styles to html, body, and other high level
 * DOMs.
-* 
+*
 * All utility classes start with a `u-` and all do
 * one basic CSS thing (for example, making the font-weight
 * 600 for bolding) or are super generic.
-* 
+*
 * This is 𝙉𝙊𝙏 the place to define classes for components or
 * do rigorous styling. You shoud not need to change this file
 * much after initial creation.
@@ -18,17 +18,21 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 
 :root {
-  --primary: #396dff;
-  --primary--dim: #6987db;
-  --darkgrey: #d4d4d4;
-  --medgrey: #e0e0e0;
-  --grey: #f7f7f7;
+  --primary: #d28b4b;
+  --darkgrey: #404040;
+  --medgrey: #808080;
+  --grey: #d0d0d0;
   --white: #fff;
+  --black: #000;
 
+  --t: 2px;
   --xs: 4px;
   --s: 8px;
+  --ms: 10px;
   --m: 16px;
+  --ml: 20px;
   --l: 24px;
+  --xl: 32px;
 }
 
 body {

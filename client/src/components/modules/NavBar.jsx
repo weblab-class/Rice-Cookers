@@ -50,19 +50,22 @@ const NavBar = () => {
 					<span className="NavBar-searchIcon" aria-hidden="true">
 						⌕
 					</span>
+
 					<input
+						// searchbar
 						className="NavBar-searchInput"
-						placeholder="Search recipes..."
+						placeholder="Nothing to see here..."
 						value={search}
 						onChange={(e) => setSearch(e.target.value)}
 					/>
 					<button
+					  // filter
 						className="NavBar-iconButton"
 						type="button"
 						title="Filter"
-						onClick={() => alert("Filter UI not wired yet")}
+						onClick={() => alert("Oops! You've encountered an unimplemented feature. Please reconsider.")}
 					>
-						⌁
+						~
 					</button>
 				</div>
 			</div>
@@ -70,11 +73,7 @@ const NavBar = () => {
 			<div className="NavBar-right" ref={menuRef}>
 
 				<Link className="NavBar-iconButton NavBar-linkButton" to="/submit" title="New recipe">
-					<img className="NavBar-submitIcon" src={submitIcon} alt="Submit" />
-				</Link>
-
-				<Link className="NavBar-iconButton NavBar-linkButton" to="/submit" title="Create recipe">
-					📷
+					+
 				</Link>
 
 				<button
@@ -91,17 +90,16 @@ const NavBar = () => {
 					<div className="MiniMenu" role="menu" aria-label="User menu">
 						{userId ? (
 							<>
-								<Link className="MiniMenu-row MiniMenu-link" to="/my" role="menuitem" onClick={() => setMenuOpen(false)}>
-									My Recipes
-								</Link>
-
 								<Link
-									className="MiniMenu-row MiniMenu-link"
-									to="/favorites"
+									className="MiniMenu-row MiniMenu-link" to="/"
 									role="menuitem"
 									onClick={() => setMenuOpen(false)}
 								>
-									Favorites
+									Home
+								</Link>
+
+								<Link className="MiniMenu-row MiniMenu-link" to="/my" role="menuitem" onClick={() => setMenuOpen(false)}>
+									My Recipes
 								</Link>
 
 								<div className="MiniMenu-divider" />

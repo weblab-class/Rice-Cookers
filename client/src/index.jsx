@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./components/App";
-import Skeleton from "./components/pages/Skeleton";
 import NotFound from "./components/pages/NotFound";
+
+import "./utilities.css";
 
 import {
   createBrowserRouter,

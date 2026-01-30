@@ -19,29 +19,43 @@ const normalizeLines = (v) => {
 };
 
 const RecipeCard = ({ recipe }) => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [showsInstr, setShowsInstr] = useState(false);
+	const [showsIng, setShowsIng] = useState(false);
 
 	const instructions = useMemo(() => normalizeLines(recipe?.instructions), [recipe?.instructions]);
+	const ingredients = useMemo(() => normalizeLines(recipe?.ingredients), [recipe?.ingredients]);
 
-	const toggleOpen = () => {
-		setIsOpen((prev) => !prev);
+	const toggleInstr = () => {
+		setShowsInstr((prev) => !prev);
+	};
+
+	const toggleIng = () => {
+		setShowsIng((prev) => !prev);
 	};
 
 	const onKeyDown = (e) => {
 		if (e.key === "Enter" || e.key === " ") {
 			e.preventDefault();
-			toggleOpen();
+			toggleInstr();
+		}
+	};
+
+	const onIngredientsKeyDown = (e) => {
+		if (e.key === "Enter" || e.key === " ") {
+			e.preventDefault();
+			e.stopPropagation();
+			toggleIng();
 		}
 	};
 
 	return (
 		<div
-			className={`RecipeCard ${isOpen ? "RecipeCard--open" : ""}`}
-			onClick={toggleOpen}
+			className={`RecipeCard ${showsInstr ? "RecipeCard--open" : ""}`}
+			onClick={toggleInstr}
 			onKeyDown={onKeyDown}
 			role="button"
 			tabIndex={0}
-			aria-expanded={isOpen}
+			aria-expanded={showsInstr}
 		>
 			<div className="RecipeCard-topRow">
 				<div className="RecipeCard-author">{recipe.authorName}</div>
@@ -61,15 +75,54 @@ const RecipeCard = ({ recipe }) => {
 				<div className="RecipeCard-title">{recipe.title}</div>
 			</div>
 
+			<div className="RecipeCard-ingredientsSection">
+				<div
+					className="RecipeCard-ingredientsHeader"
+					onClick={(e) => {
+						e.stopPropagation();
+						toggleIng();
+					}}
+					onKeyDown={onIngredientsKeyDown}
+					role="button"
+					tabIndex={0}
+					aria-expanded={showsIng}
+				>
+					<div className="RecipeCard-ingredientsLabel">
+						{showsIng ? "Ingredients" : "Click to view ingredients"}
+					</div>
+					<div className="RecipeCard-ingredientsChevron">{showsIng ? "▲" : "▼"}</div>
+				</div>
+
+				{showsIng ? (
+					<div
+						className="RecipeCard-ingredientsBody"
+						onClick={(e) => e.stopPropagation()}
+						onKeyDown={(e) => e.stopPropagation()}
+						role="region"
+						aria-label="Recipe ingredients"
+					>
+						{ingredients.length ? (
+							<ul className="RecipeCard-ingredientsList">
+								{ingredients.map((item, i) => (
+									<li key={i}>{item}</li>
+								))}
+							</ul>
+						) : (
+							<div className="RecipeCard-ingredientsEmpty">No ingredients provided.</div>
+						)}
+					</div>
+				) : null}
+			</div>
+
 			<div className="RecipeCard-instructionsSection">
 				<div className="RecipeCard-instructionsHeader">
 					<div className="RecipeCard-instructionsLabel">
-						{isOpen ? "Instructions" : "Click to view instructions"}
+						{showsInstr ? "Instructions" : "Click to view instructions"}
 					</div>
-					<div className="RecipeCard-instructionsChevron">{isOpen ? "▲" : "▼"}</div>
+					<div className="RecipeCard-instructionsChevron">{showsInstr ? "▲" : "▼"}</div>
 				</div>
 
-				{isOpen ? (
+				{showsInstr ? (
 					<div
 						className="RecipeCard-instructionsBody"
 						onClick={(e) => e.stopPropagation()}

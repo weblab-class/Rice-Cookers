@@ -1,0 +1,27 @@
+.MyRecipeCardWrap {
+	position: relative;
+}
+
+.MyRecipeCard-delete {
+	position: absolute;
+	top: var(--s);
+	right: var(--s);
+	z-index: var(--t);
+
+	width: var(--xl);
+	height: var(--xl);
+	border-radius: var(--m);
+
+	border: var(--t) solid var(--black);
+	background: var(--white);
+	color: var(--black);
+
+	cursor: pointer;
+	font-size: var(--m);
+	line-height: 1;
+}
+
+.MyRecipeCard-delete:hover {
+	background: var(--grey);
+	color: var(--black);
+}

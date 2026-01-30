@@ -11,6 +11,7 @@ import { get, post } from "../utilities";
 import NavBar from "./modules/NavBar";
 import HomePage from "./pages/HomePage";
 import SubmitPage from "./pages/SubmitPage";
+import MyRecipesPage from "./pages/MyRecipesPage";
 import NotFound from "./pages/NotFound";
 
 export const UserContext = createContext(null);
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/submit" element={<SubmitPage />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/my" element={<MyRecipesPage />} />
         </Routes>
       </div>
     </UserContext.Provider>

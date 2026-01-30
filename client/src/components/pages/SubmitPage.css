@@ -8,9 +8,11 @@
 	width:100%;
 	max-width:720px;
 	background:#ffffff;
-	border-radius:12px;
-	padding:20px;
-	box-shadow:0 6px 18px rgba(0,0,0,0);
+	opacity: 100%;
+	border-radius: var(--ms);
+	padding: var(--m);
+
+	border: 2px solid var(--black);
 }
 
 .SubmitRecipePage-title{
@@ -28,7 +30,7 @@
 .SubmitRecipePage-form{
 	display:flex;
 	flex-direction:column;
-	gap:14px;
+	gap: var(--m);
 }
 
 .SubmitRecipePage-label{
@@ -40,28 +42,28 @@
 
 .SubmitRecipePage-input,
 .SubmitRecipePage-textarea{
-	padding:10px 12px;
-	border-radius:8px;
-	border:1px solid rgba(0,0,0,0.15);
-	font-size:14px;
+	padding: 10px 12px;
+	border-radius: var(--s);
+	border: 1px solid var(--black);
+	font-size: var(--m);
 }
 
 .SubmitRecipePage-textarea{
-	min-height:110px;
-	resize:vertical;
+	min-height: 110px;
+	resize: vertical;
 }
 
 .SubmitRecipePage-row{
-	display:grid;
-	grid-template-columns:1fr 1fr 1fr;
-	gap:12px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: var(--ms);
 }
 
 .SubmitRecipePage-button{
-	padding:12px 14px;
-	border-radius:10px;
-	border:none;
-	cursor:pointer;
-	font-size:14px;
-	font-weight:600;
+	padding: 10px 12px;
+	border-radius: var(--m);
+	border: none;
+	cursor: pointer;
+	font-size: var(--m);
+	font-weight: 600;
 }

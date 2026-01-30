@@ -6,7 +6,7 @@
 	justify-content: space-between;
 	align-items: center;
 
-	margin-bottom: 20px;
+	margin-bottom: var(--ml);
 	padding: 0;
 	background: transparent;
 }
@@ -19,7 +19,7 @@
 .NavBar-right {
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	gap: var(--ms);
 	position: relative;
 }
 
@@ -29,17 +29,15 @@
 	align-items: center;
 
 	background: #fff;
-	border-radius: 20px;
-	padding: 5px 10px;
+	border-radius: var(--ml);
+	padding: var(--xs) var(--ms);
 	width: 250px;
 
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 }
 
 .NavBar-searchIcon {
-	font-size: 16px;
-	margin-right: 8px;
-	opacity: 0.85;
+	font-size: var(--m);
+	margin-right: var(--s);
 }
 
 .NavBar-searchInput {
@@ -47,29 +45,27 @@
 	outline: none;
 	flex: 1;
 
-	padding: 5px 0;
+	padding: var(--xs) 0;
 	background: transparent;
 
-	font-size: 14px;
+	font-size: var(--m);
 }
 
-/* Icon buttons (match Canva mock: no border, no background) */
+/* Icon buttons */
 .NavBar-iconButton {
-	background: none;
-	border: none;
-	padding: 6px;
-	border-radius: 999px;
+	background: var(--white);
+	border: 1px solid var(--black);
+	padding: var(--xs);
+	border-radius: var(--s);
 
-	font-size: 20px;
+	font-size: var(--ml);
 	line-height: 1;
 	cursor: pointer;
-	color: rgba(255, 255, 255, 0.95);
-
-	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+	color: var(--black);
 }
 
 .NavBar-iconButton:hover {
-	background: rgba(255, 255, 255, 0.15);
+	background: var(--grey)
 }
 
 .NavBar-linkButton {
@@ -77,37 +73,52 @@
 	color: inherit;
 }
 
-/* Dropdown */
+/* Dropdown before login */
+.MiniMenu-loginWrap {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s);
+	padding-bottom: var(--ms);
+}
+
+.MiniMenu-google {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 var(--m) var(--ms) var(--m);
+}
+
+/* Dropdown after login*/
 .MiniMenu {
 	position: absolute;
-	top: 46px;
+	top: 48px;
 	right: 0;
 
 	min-width: 200px;
-	border-radius: 14px;
-	background: white;
-
-	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
-	overflow: hidden;
+	border-radius: var(--ms);
+	border: 1px solid var(--black);
+	background: var(--white);
 }
 
 .MiniMenu-row {
-	padding: 12px 14px;
-	font-size: 14px;
+	padding: var(--ms) var(--m);
+	font-size: var(--m);
 }
 
 .MiniMenu-link {
 	display: block;
 	text-decoration: none;
-	color: black;
+	color: var(--black);
 }
 
 .MiniMenu-link:hover {
-	background: rgba(0, 0, 0, 0.06);
+	background: var(--grey);
+	border-radius: var(--ms);
 }
 
 .MiniMenu-button {
 	width: 100%;
+	border-radius: var(--ms);
 	text-align: left;
 	border: none;
 	background: transparent;
@@ -115,20 +126,21 @@
 }
 
 .MiniMenu-button:hover {
-	background: rgba(0, 0, 0, 0.06);
+	background: var(--grey);
 }
 
 .MiniMenu-muted {
 	opacity: 0.7;
 }
 
+
 .MiniMenu-divider {
 	height: 1px;
-	background: rgba(0, 0, 0, 0.12);
+	background: var(--black);
 }
 
 .NavBar-submitIcon{
-	width:20px;
-	height:20px;
+	width: var(--l);
+	height: var(--l);
 	display:block;
 }

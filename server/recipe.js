@@ -57,6 +57,18 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/mine", auth.ensureLoggedIn, async (req, res) => {
+	try {
+		const recipes = await Recipe.find({ author: req.user._id })
+			.sort({ createdAt: -1 });
+
+		res.send(recipes);
+	} catch (e) {
+		console.error(e);
+		res.status(500).send({ err: "server error" });
+	}
+});
+
 // POST /api/recipe (Create new recipe)
 router.post("/", auth.ensureLoggedIn, async (req, res) => {
   try {
@@ -125,6 +137,31 @@ router.post("/", auth.ensureLoggedIn, async (req, res) => {
     console.log("Create recipe error:", err);
     res.status(500).send({ msg: "Failed to create recipe" });
   }
+});
+
+router.post("/delete", auth.ensureLoggedIn, async (req, res) => {
+	try {
+		const { recipeId } = req.body;
+
+		if (!recipeId || !mongoose.Types.ObjectId.isValid(recipeId)) {
+			return res.status(400).send({ err: "invalid recipeId" });
+		}
+
+		const deleted = await Recipe.findOneAndDelete({
+			_id: recipeId,
+			author: req.user._id,
+		});
+
+		if (!deleted) {
+			// Either doesn't exist or user doesn't own it
+			return res.status(404).send({ err: "recipe not found" });
+		}
+
+		res.send({ ok: true });
+	} catch (e) {
+		console.error(e);
+		res.status(500).send({ err: "server error" });
+	}
 });
 
 // GET /api/recipe/:id

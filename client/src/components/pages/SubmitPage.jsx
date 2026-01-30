@@ -2,10 +2,10 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../App";
-import { post } from "../../utilities"; // <--- CRITICAL IMPORT
+import { post } from "../../utilities";
 import "./SubmitPage.css";
 
-// Helper to convert image files to Base64 strings
+// image conversion to b64 strings
 const fileToBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -51,22 +51,21 @@ const SubmitPage = () => {
     setSubmitting(true);
 
     try {
-      // 1. Process Image
+      // save image
       let imageBase64 = "";
       if (imageFile) {
-        // Simple check to prevent sending massive files that crash the request
+        // prevent large file sizes so mongoose stays happy
         if (imageFile.size > 5 * 1024 * 1024) {
              throw new Error("Image too large (max 5MB)");
         }
         imageBase64 = await fileToBase64(imageFile);
       }
 
-      // 2. Prepare Payload
       const body = {
         title,
         description,
-        ingredients, // The backend handles splitting this string into an array
-        instructions, // The backend handles splitting this string into an array
+        ingredients,
+        instructions,
         prepTimeMinutes: prepTimeMinutes || 0,
         cookTimeMinutes: cookTimeMinutes || 0,
         servings: servings || 0,
@@ -74,11 +73,10 @@ const SubmitPage = () => {
         image: imageBase64,
       };
 
-      // 3. Send to Backend
-      // NOTE: Ensure your backend "post" route is defined in server/recipe.js
+      //post recipe
       await post("/api/recipe", body);
 
-      // 4. Success! Redirect home.
+      //home redirect
       navigate("/");
     } catch (err) {
       console.error(err);
@@ -96,7 +94,7 @@ const SubmitPage = () => {
         {error && <div className="SubmitRecipePage-error">{error}</div>}
 
         <form className="SubmitRecipePage-form" onSubmit={onSubmit}>
-          {/* Title */}
+          {/* title */}
           <label className="SubmitRecipePage-label">
             Title (required)
             <input
@@ -108,7 +106,7 @@ const SubmitPage = () => {
             />
           </label>
 
-          {/* Description */}
+          {/* desc */}
           <label className="SubmitRecipePage-label">
             Short Description
             <input
@@ -119,7 +117,7 @@ const SubmitPage = () => {
             />
           </label>
 
-          {/* Image Upload */}
+          {/* image upload */}
           <label className="SubmitRecipePage-label">
             Image
             <input
@@ -130,7 +128,7 @@ const SubmitPage = () => {
             />
           </label>
 
-          {/* Metadata Row */}
+          {/* misc. data */}
           <div className="SubmitRecipePage-row">
             <label className="SubmitRecipePage-label">
               Prep Time (min)
@@ -164,7 +162,7 @@ const SubmitPage = () => {
             </label>
           </div>
 
-          {/* Ingredients */}
+          {/* ingredients */}
           <label className="SubmitRecipePage-label">
             Ingredients (one per line)
             <textarea
@@ -177,7 +175,7 @@ const SubmitPage = () => {
             />
           </label>
 
-          {/* Instructions */}
+          {/* instructions */}
           <label className="SubmitRecipePage-label">
             Instructions (one per line)
             <textarea
@@ -190,7 +188,7 @@ const SubmitPage = () => {
             />
           </label>
 
-          {/* Tags */}
+          {/* tags */}
           <label className="SubmitRecipePage-label">
             Tags (comma separated)
             <input
@@ -201,7 +199,7 @@ const SubmitPage = () => {
             />
           </label>
 
-          {/* Submit Button */}
+          {/* submit */}
           <button
             type="submit"
             className="SubmitRecipePage-button"
@@ -225,5 +223,5 @@ const SubmitPage = () => {
   );
 };
 
-// <--- THIS EXPORT IS MANDATORY
+
 export default SubmitPage;

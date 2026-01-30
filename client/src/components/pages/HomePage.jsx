@@ -4,8 +4,7 @@ import RecipeList from "../modules/RecipeList";
 import "./HomePage.css";
 
 const HomePage = () => {
-	const [columns, setColumns] = useState(2);
-
+	const [cols, setCols] = useState(2);
 	const [recipes, setRecipes] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState("");
@@ -44,8 +43,8 @@ const HomePage = () => {
 		return [...recipes].sort((a, b) => (Number(b?.avgRating) || 0) - (Number(a?.avgRating) || 0));
 	}, [recipes]);
 
-	const decCols = () => setColumns((c) => Math.max(1, c - 1));
-	const incCols = () => setColumns((c) => Math.min(4, c + 1));
+	const decCols = () => setCols((c) => Math.max(1, c - 1));
+	const incCols = () => setCols((c) => Math.min(4, c + 1));
 
 	return (
 		<div className="HomePage">
@@ -56,7 +55,7 @@ const HomePage = () => {
 					<button className="ColsButton" type="button" onClick={decCols}>
 						−
 					</button>
-					<div className="ColsLabel">{columns} / row</div>
+					<div className="ColsLabel">{cols} / row</div>
 					<button className="ColsButton" type="button" onClick={incCols}>
 						+
 					</button>
@@ -68,7 +67,7 @@ const HomePage = () => {
 			) : error ? (
 				<div>{error}</div>
 			) : (
-				<RecipeList recipes={topRated} columns={columns} />
+				<RecipeList recipes={topRated} cols={cols} />
 			)}
 		</div>
 	);

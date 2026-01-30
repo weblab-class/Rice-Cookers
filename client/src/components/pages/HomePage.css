@@ -10,23 +10,11 @@ body {
 	margin: 0;
 	padding: 20px;
 
-	/* Fallback color + placeholder veneer image */
-	background-color: #d28b4b;
-	background-image: url("/images/wood-veneer-placeholder.jpg");
+	background-color: var(--primary);
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-}
-
-/* Optional: improve readability over busy backgrounds */
-body::before {
-	content: "";
-	position: fixed;
-	inset: 0;
-	background: rgba(210, 139, 75, 0.35);
-	pointer-events: none;
-	z-index: 0;
 }
 
 .HomePage {
@@ -39,16 +27,16 @@ body::before {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 12px;
-	margin-bottom: 20px;
+	gap: var(--ms);
+	margin-bottom: var(--ml);
 }
 
 .HomePage-title {
 	margin: 0;
-	font-size: 20px;
+	font-size: var(--ml);
 	font-weight: 600;
-	color: rgba(255, 255, 255, 0.95);
-	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+	color: var(--black);
+
 }
 
 .HomePage-controls {
@@ -57,27 +45,26 @@ body::before {
 	gap: 8px;
 }
 
+/* column controls 	*/
 .ColsButton {
-	width: 40px;
-	height: 40px;
-	border-radius: 999px;
-	border: none;
-	background: rgba(255, 255, 255, 0.9);
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+	width: 32px;
+	height: 32px;
+	border-radius: 20px;
+	border: 1px solid var(--black);
+	background: var(--white);
 	cursor: pointer;
 
-	font-size: 22px;
+	font-size: var(--l);
 	line-height: 1;
 }
 
 .ColsButton:hover {
-	background: rgba(255, 255, 255, 1);
+	background: var(--grey);
 }
 
 .ColsLabel {
 	min-width: 72px;
 	text-align: center;
 	font-weight: 600;
-	color: rgba(255, 255, 255, 0.95);
-	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+	color: var(--black);
 }

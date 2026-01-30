@@ -1,0 +1,27 @@
+.MyRecipesPage {
+	width: 100%;
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: var(--m);
+}
+
+.MyRecipesPage-header {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--ms);
+	margin-bottom: var(--ms);
+}
+
+.MyRecipesPage-title {
+	margin: 0;
+	font-size: var(--l);
+}
+
+.MyRecipesPage-count {
+	opacity: 0.8;
+}
+
+.MyRecipesPage-muted {    
+	opacity: 0.85;
+}

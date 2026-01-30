@@ -2,13 +2,13 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: 2px;
+	gap: var(--t);
 
 	margin-top: 0;
-	font-size: 18px;
+	font-size: var(--ml);
 	line-height: 1;
 }
 
 .Stars-star {
 	color: gold;
-}
+}		

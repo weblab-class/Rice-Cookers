@@ -4,6 +4,7 @@ import "./RatingDisplay.css";
 const StarRatingDisplay = ({ value }) => {
 	const v = Math.max(0, Math.min(5, Math.round(value ?? 0)));
 	return (
+		// map rounded value of aggregate rating to stars
 		<div className="Stars" aria-label={`Rating ${v} out of 5`}>
 			{Array.from({ length: 5 }).map((_, i) => (
 				<span key={i} className="Stars-star">
